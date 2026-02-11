@@ -1,3 +1,4 @@
+import 'package:fitmind_ai_fitness_mental_health_companion/signup.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatelessWidget {
@@ -8,6 +9,7 @@ class Login extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -21,14 +23,10 @@ class Login extends StatelessWidget {
                   height: 90,
                   width: 90,
                   decoration: BoxDecoration(
-                    color: theme.primaryColor.withOpacity(0.1),
+                    color: const Color.fromARGB(255, 11, 238, 22),
                     borderRadius: BorderRadius.circular(24),
                   ),
-                  child: Icon(
-                    Icons.psychology,
-                    size: 42,
-                    color: theme.primaryColor,
-                  ),
+                  child: Icon(Icons.psychology, size: 42, color: Colors.white),
                 ),
 
                 const SizedBox(height: 20),
@@ -54,11 +52,11 @@ class Login extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(24),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: const Color.fromARGB(255, 244, 255, 247),
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
                       BoxShadow(
-                        color: theme.primaryColor.withOpacity(0.1),
+                        color: Colors.black,
                         blurRadius: 20,
                         spreadRadius: 2,
                       ),
@@ -124,6 +122,10 @@ class Login extends StatelessWidget {
                         width: double.infinity,
                         height: 50,
                         child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color.fromARGB(255, 11, 238, 22),
+                          ),
+
                           onPressed: () {},
                           child: const Text(
                             "Sign In",
@@ -147,11 +149,16 @@ class Login extends StatelessWidget {
                       "Don't have an account? ",
                       style: theme.textTheme.bodyMedium,
                     ),
-                    Text(
-                      "Create Account",
-                      style: TextStyle(
-                        color: theme.colorScheme.primary,
-                        fontWeight: FontWeight.bold,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Signup(),));
+                      },
+                      child: Text(
+                        "Create Account",
+                        style: TextStyle(
+                          color: theme.colorScheme.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ],
@@ -180,7 +187,7 @@ class Login extends StatelessWidget {
         prefixIcon: Icon(icon, color: theme.colorScheme.primary),
         hintText: hint,
         filled: true,
-        fillColor: theme.colorScheme.surface.withOpacity(0.05),
+        fillColor: Colors.white,
         contentPadding: const EdgeInsets.symmetric(vertical: 16),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
@@ -188,5 +195,6 @@ class Login extends StatelessWidget {
         ),
       ),
     );
+    
   }
 }
