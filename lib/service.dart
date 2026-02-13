@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitmind_ai_fitness_mental_health_companion/homescreen.dart';
 import 'package:flutter/material.dart';
 
 Future<void> Register(
@@ -36,11 +37,11 @@ Future<void> login(String email, String password, BuildContext context) async {
     ).showSnackBar(SnackBar(content: Text('Login successful!')));
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const HomeScreen()),
+      MaterialPageRoute(builder: (context) => const Homescreen()),
     );
   } catch (e) {
     ScaffoldMessenger.of(
       context,
-    ).showSnackBar(SnackBar(content: Text('e.toString()')));
+    ).showSnackBar(SnackBar(content: Text(e.toString())));
   }
 }

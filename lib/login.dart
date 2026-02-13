@@ -172,7 +172,7 @@ class _LoginState extends State<Login> {
                             ),
                           ),
 
-                          onPressed: () {login(emailController.text, passwordController.text, context)},
+                          onPressed: () {login(emailController.text.trim(), passwordController.text.trim(), context);},
                           child: const Text(
                             "Sign In",
                             style: TextStyle(
