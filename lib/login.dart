@@ -1,9 +1,43 @@
+import 'package:fitmind_ai_fitness_mental_health_companion/forgotpassword.dart';
+import 'package:fitmind_ai_fitness_mental_health_companion/service.dart';
 import 'package:fitmind_ai_fitness_mental_health_companion/signup.dart';
 import 'package:flutter/material.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   const Login({super.key});
 
+  @override
+  State<Login> createState() => _LoginState();
+
+  static Widget _buildTextField(
+    BuildContext context, {
+    required TextEditingController controller,
+    required IconData icon,
+    required String hint,
+    bool isPassword = false,
+  }) {
+    final theme = Theme.of(context);
+
+    return TextField(
+      obscureText: isPassword,
+      decoration: InputDecoration(
+        prefixIcon: Icon(icon, color: theme.colorScheme.primary),
+        hintText: hint,
+        filled: true,
+        fillColor: Colors.white,
+        contentPadding: const EdgeInsets.symmetric(vertical: 16),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide.none,
+        ),
+      ),
+    );
+  }
+}
+
+class _LoginState extends State<Login> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -82,19 +116,21 @@ class Login extends StatelessWidget {
 
                       const SizedBox(height: 20),
 
-                      _buildTextField(
+                      Login._buildTextField(
                         context,
                         icon: Icons.email_outlined,
                         hint: "Email Address",
+                        controller: emailController,
                       ),
 
                       const SizedBox(height: 20),
 
-                      _buildTextField(
+                      Login._buildTextField(
                         context,
                         icon: Icons.lock_outline,
                         hint: "Password",
                         isPassword: true,
+                        controller: passwordController,
                       ),
 
                       const SizedBox(height: 8),
@@ -104,7 +140,12 @@ class Login extends StatelessWidget {
                         alignment: Alignment.centerRight,
                         child: TextButton(
                           onPressed: () {
-                            // TODO: Navigate to Forgot Password screen
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Forgotpassword(),
+                              ),
+                            );
                           },
                           child: Text(
                             "Forgot Password?",
@@ -123,10 +164,15 @@ class Login extends StatelessWidget {
                         height: 50,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(255, 11, 238, 22),
+                            backgroundColor: const Color.fromARGB(
+                              255,
+                              11,
+                              238,
+                              22,
+                            ),
                           ),
 
-                          onPressed: () {},
+                          onPressed: () {login(emailController.text, passwordController.text, context)},
                           child: const Text(
                             "Sign In",
                             style: TextStyle(
@@ -151,7 +197,10 @@ class Login extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => Signup(),));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Signup()),
+                        );
                       },
                       child: Text(
                         "Create Account",
@@ -171,30 +220,5 @@ class Login extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  static Widget _buildTextField(
-    BuildContext context, {
-    required IconData icon,
-    required String hint,
-    bool isPassword = false,
-  }) {
-    final theme = Theme.of(context);
-
-    return TextField(
-      obscureText: isPassword,
-      decoration: InputDecoration(
-        prefixIcon: Icon(icon, color: theme.colorScheme.primary),
-        hintText: hint,
-        filled: true,
-        fillColor: Colors.white,
-        contentPadding: const EdgeInsets.symmetric(vertical: 16),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide.none,
-        ),
-      ),
-    );
-    
   }
 }
