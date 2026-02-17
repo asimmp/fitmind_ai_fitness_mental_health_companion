@@ -17,6 +17,9 @@ class _SignupState extends State<Signup> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
+  TextEditingController weightController = TextEditingController();
+  TextEditingController goalsController = TextEditingController();
 
   bool _isValidEmail(String email) {
     final emailRegex = RegExp(
@@ -98,8 +101,8 @@ class _SignupState extends State<Signup> {
                     emailError = value.isEmpty
                         ? null
                         : _isValidEmail(value)
-                        ? null
-                        : 'Please enter a valid email address';
+                            ? null
+                            : 'Please enter a valid email address';
                   });
                 },
                 errorText: emailError,
@@ -128,6 +131,41 @@ class _SignupState extends State<Signup> {
                 obscure: obscureConfirmPassword,
                 controller: confirmPasswordController,
               ),
+
+              /// Age
+              _buildLabel("Age"),
+              const SizedBox(height: 8),
+              _buildField(
+                hint: "25",
+                icon: Icons.calendar_today,
+                controller: ageController,
+                keyboardType: TextInputType.number,
+              ),
+
+              const SizedBox(height: 24),
+
+              /// Weight
+              _buildLabel("Weight (kg)"),
+              const SizedBox(height: 8),
+              _buildField(
+                hint: "70",
+                icon: Icons.monitor_weight_outlined,
+                controller: weightController,
+                keyboardType: TextInputType.number,
+              ),
+
+              const SizedBox(height: 24),
+
+              /// Goals
+              _buildLabel("Fitness Goals"),
+              const SizedBox(height: 8),
+              _buildField(
+                hint: "Lose weight, Build muscle...",
+                icon: Icons.flag_outlined,
+                controller: goalsController,
+              ),
+
+              const SizedBox(height: 24),
 
               /// Sign Up Button
               SizedBox(
@@ -158,6 +196,9 @@ class _SignupState extends State<Signup> {
                       nameController.text,
                       email,
                       passwordController.text,
+                      ageController.text,
+                      weightController.text,
+                      goalsController.text,
                       context,
                     );
                   },
@@ -261,6 +302,7 @@ class _SignupState extends State<Signup> {
     VoidCallback? toggle,
     ValueChanged<String>? onChanged,
     String? errorText,
+    TextInputType? keyboardType,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -268,6 +310,7 @@ class _SignupState extends State<Signup> {
         TextField(
           onChanged: onChanged,
           obscureText: obscure,
+          keyboardType: keyboardType,
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: const TextStyle(color: Color(0xFF94A3B8)),

@@ -7,6 +7,9 @@ Future<void> Register(
   String name,
   String email,
   String password,
+  String age,
+  String weight,
+  String goals,
   BuildContext context,
 ) async {
   try {
@@ -15,7 +18,15 @@ Future<void> Register(
     await FirebaseFirestore.instance
         .collection('users')
         .doc(userCredetial.user!.uid)
-        .set({'email': email, 'password': password});
+        .set({
+          'name': name,
+          'email': email,
+          'password': password,
+          'age': age,
+          'weight': weight,
+          'goals': goals,
+          'createdAt': FieldValue.serverTimestamp(),
+        });
     ScaffoldMessenger.of(
       context,
     ).showSnackBar(SnackBar(content: Text('Registration successful!')));
