@@ -86,10 +86,22 @@ class _BMICalculatorState extends State<BMICalculator> {
 
     setState(() => _isSaving = true);
     try {
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.uid)
-          .update({
+      final batch = FirebaseFirestore.instance.batch();
+      final userDoc =
+          FirebaseFirestore.instance.collection('users').doc(user.uid);
+      final historyDoc = userDoc.collection('bmi_history').doc();
+
+      final data = {
+        'bmi': bmiResult,
+        'category': bmiCategory,
+        'bmr': bmrResult,
+        'tdee': tdeeResult,
+        'bodyFat': bodyFatResult,
+        'timestamp': FieldValue.serverTimestamp(),
+      };
+
+      // Update primary user doc for quick access to "latest"
+      batch.update(userDoc, {
         'lastBMI': bmiResult,
         'lastBMICategory': bmiCategory,
         'lastBMR': bmrResult,
@@ -97,9 +109,16 @@ class _BMICalculatorState extends State<BMICalculator> {
         'lastBodyFat': bodyFatResult,
         'bmiUpdatedAt': FieldValue.serverTimestamp(),
       });
+
+      // Add to history sub-collection
+      batch.set(historyDoc, data);
+
+      await batch.commit();
+
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("BMI data saved successfully!")),
+          const SnackBar(
+              content: Text("BMI metrics synced to Cloud and History!")),
         );
       }
     } catch (e) {

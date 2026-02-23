@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fitmind_ai_fitness_mental_health_companion/notification_service.dart';
 import 'package:intl/intl.dart';
@@ -19,83 +18,11 @@ class _TodoScreenState extends State<TodoScreen> {
   final _firestore = FirebaseFirestore.instance;
 
   DateTime? _selectedDateTime;
-  Timer? _notifPoller;
-
-  @override
-  void initState() {
-    super.initState();
-    // Web: poll every 30s and show in-app banner if a task is due
-    if (kIsWeb) {
-      _notifPoller = Timer.periodic(
-        const Duration(seconds: 30),
-        (_) => _checkDueTasks(),
-      );
-    }
-  }
 
   @override
   void dispose() {
     _taskController.dispose();
-    _notifPoller?.cancel();
     super.dispose();
-  }
-
-  // ─── In-app notification check (Web fallback) ─────────────────────────────
-  Future<void> _checkDueTasks() async {
-    final user = _auth.currentUser;
-    if (user == null) return;
-
-    final now = DateTime.now();
-    final snap = await _firestore
-        .collection('users')
-        .doc(user.uid)
-        .collection('tasks')
-        .where('isCompleted', isEqualTo: false)
-        .get();
-
-    for (final doc in snap.docs) {
-      final data = doc.data();
-      final ts = data['scheduledTime'] as Timestamp?;
-      if (ts == null) continue;
-
-      final scheduled = ts.toDate();
-      final diff = scheduled.difference(now).inSeconds.abs();
-
-      if (diff <= 30 &&
-          scheduled.isBefore(now.add(const Duration(seconds: 30)))) {
-        if (mounted) {
-          _showInAppBanner(data['title'] ?? 'Task Reminder');
-        }
-      }
-    }
-  }
-
-  void _showInAppBanner(String taskTitle) {
-    if (!mounted) return;
-    ScaffoldMessenger.of(context).showMaterialBanner(
-      MaterialBanner(
-        backgroundColor: const Color(0xFF2FA67A),
-        leading: const Icon(Icons.alarm, color: Colors.white),
-        content: Text(
-          '⏰ Reminder: $taskTitle',
-          style:
-              const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () =>
-                ScaffoldMessenger.of(context).hideCurrentMaterialBanner(),
-            child: const Text('Dismiss', style: TextStyle(color: Colors.white)),
-          ),
-        ],
-      ),
-    );
-    // Auto hide after 5 seconds
-    Future.delayed(const Duration(seconds: 5), () {
-      if (mounted) {
-        ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
-      }
-    });
   }
 
   // ─── CRUD ─────────────────────────────────────────────────────────────────
@@ -364,10 +291,14 @@ class _TodoScreenState extends State<TodoScreen> {
           }
 
           final docs = snapshot.data!.docs;
-          final pending =
-              docs.where((d) => !(d.data() as Map)['isCompleted']).toList();
-          final completed =
-              docs.where((d) => (d.data() as Map)['isCompleted']).toList();
+          final pending = docs.where((doc) {
+            final d = doc.data() as Map<String, dynamic>?;
+            return d != null && d['isCompleted'] == false;
+          }).toList();
+          final completed = docs.where((doc) {
+            final d = doc.data() as Map<String, dynamic>?;
+            return d != null && d['isCompleted'] == true;
+          }).toList();
 
           return ListView(
             padding: const EdgeInsets.all(16),

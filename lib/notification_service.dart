@@ -1,7 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+// ignore: avoid_web_libraries_in_flutter
+import 'dart:js' as js show context;
 
 class NotificationService {
   static final NotificationService _instance = NotificationService._internal();
@@ -11,31 +14,60 @@ class NotificationService {
   final FlutterLocalNotificationsPlugin _plugin =
       FlutterLocalNotificationsPlugin();
 
+  // Track tasks already notified in this session
+  final Set<String> notifiedTaskIds = {};
+
   Future<void> init() async {
-    if (kIsWeb) return; // Web uses in-app banners only
+    if (kIsWeb) {
+      _requestWebPermission();
+      return;
+    }
 
-    tz.initializeTimeZones();
+    try {
+      tz.initializeTimeZones();
+      final String timeZoneName = await FlutterTimezone.getLocalTimezone();
+      tz.setLocalLocation(tz.getLocation(timeZoneName));
 
-    const androidSettings =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
-    const iosSettings = DarwinInitializationSettings(
-      requestAlertPermission: true,
-      requestBadgePermission: true,
-      requestSoundPermission: true,
-    );
+      const androidSettings =
+          AndroidInitializationSettings('@mipmap/ic_launcher');
+      const iosSettings = DarwinInitializationSettings(
+        requestAlertPermission: true,
+        requestBadgePermission: true,
+        requestSoundPermission: true,
+      );
 
-    const initSettings = InitializationSettings(
-      android: androidSettings,
-      iOS: iosSettings,
-    );
+      const initSettings = InitializationSettings(
+        android: androidSettings,
+        iOS: iosSettings,
+      );
 
-    await _plugin.initialize(initSettings);
+      await _plugin.initialize(initSettings);
+    } catch (e) {
+      debugPrint("Notification init error: $e");
+    }
+  }
 
-    // Request Android 13+ permission
-    await _plugin
-        .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
-        ?.requestNotificationsPermission();
+  void _requestWebPermission() {
+    if (!kIsWeb) return;
+    try {
+      js.context.callMethod('eval', [
+        "if (Notification.permission !== 'granted') Notification.requestPermission();"
+      ]);
+    } catch (e) {
+      debugPrint("Web notification permission error: $e");
+    }
+  }
+
+  /// Show a simple native browser notification (Web only)
+  void showWebNotification(String title, String body) {
+    if (!kIsWeb) return;
+    try {
+      js.context.callMethod('eval', [
+        "if (Notification.permission === 'granted') { new Notification('$title', { body: '$body' }); }"
+      ]);
+    } catch (e) {
+      debugPrint("Web notification display error: $e");
+    }
   }
 
   /// Schedule a notification at [scheduledTime] for the given task.
@@ -46,42 +78,44 @@ class NotificationService {
   }) async {
     if (kIsWeb) return;
 
-    final tz.TZDateTime tzScheduled =
-        tz.TZDateTime.from(scheduledTime, tz.local);
+    try {
+      final tz.TZDateTime tzScheduled =
+          tz.TZDateTime.from(scheduledTime, tz.local);
+      if (tzScheduled.isBefore(tz.TZDateTime.now(tz.local))) return;
 
-    if (tzScheduled.isBefore(tz.TZDateTime.now(tz.local))) return;
+      const androidDetails = AndroidNotificationDetails(
+        'fitmind_tasks',
+        'FitMind Tasks',
+        channelDescription: 'Scheduled daily fitness task reminders',
+        importance: Importance.max,
+        priority: Priority.high,
+        icon: '@mipmap/ic_launcher',
+      );
 
-    const androidDetails = AndroidNotificationDetails(
-      'fitmind_tasks',
-      'FitMind Tasks',
-      channelDescription: 'Scheduled daily fitness task reminders',
-      importance: Importance.max,
-      priority: Priority.high,
-      icon: '@mipmap/ic_launcher',
-    );
+      const iosDetails = DarwinNotificationDetails(
+        presentAlert: true,
+        presentBadge: true,
+        presentSound: true,
+      );
 
-    const iosDetails = DarwinNotificationDetails(
-      presentAlert: true,
-      presentBadge: true,
-      presentSound: true,
-    );
+      const notifDetails =
+          NotificationDetails(android: androidDetails, iOS: iosDetails);
 
-    const notifDetails =
-        NotificationDetails(android: androidDetails, iOS: iosDetails);
-
-    await _plugin.zonedSchedule(
-      id,
-      '⏰ FitMind Reminder',
-      title,
-      tzScheduled,
-      notifDetails,
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
-    );
+      await _plugin.zonedSchedule(
+        id,
+        '⏰ FitMind Reminder',
+        title,
+        tzScheduled,
+        notifDetails,
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+      );
+    } catch (e) {
+      debugPrint("Scheduling error: $e");
+    }
   }
 
-  /// Cancel a specific task notification.
   Future<void> cancelNotification(int id) async {
     if (kIsWeb) return;
     await _plugin.cancel(id);

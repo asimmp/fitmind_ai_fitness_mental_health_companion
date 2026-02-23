@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitmind_ai_fitness_mental_health_companion/bmi_history_screen.dart';
 import 'package:fitmind_ai_fitness_mental_health_companion/change_password_screen.dart';
 import 'package:fitmind_ai_fitness_mental_health_companion/lifestyle_habits_screen.dart';
 import 'package:fitmind_ai_fitness_mental_health_companion/login.dart';
@@ -79,7 +80,8 @@ class ProfileScreen extends StatelessWidget {
                 Icons.favorite_outline,
                 () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const LifestyleHabitsScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => const LifestyleHabitsScreen()),
                 ),
               ),
               const SizedBox(height: 12),
@@ -87,11 +89,11 @@ class ProfileScreen extends StatelessWidget {
                 context,
                 "BMI History",
                 Icons.history,
-                () {
-                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("BMI History coming soon!")),
-                  );
-                },
+                () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const BMIHistoryScreen()),
+                ),
               ),
               const SizedBox(height: 32),
               const Align(
@@ -108,7 +110,8 @@ class ProfileScreen extends StatelessWidget {
                 Icons.lock_outline,
                 () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const ChangePasswordScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => const ChangePasswordScreen()),
                 ),
               ),
               const SizedBox(height: 48),
@@ -195,7 +198,8 @@ class ProfileScreen extends StatelessWidget {
             Expanded(
               child: Text(
                 title,
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
             ),
             const Icon(Icons.chevron_right, color: Colors.grey),
