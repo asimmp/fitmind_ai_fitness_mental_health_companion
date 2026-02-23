@@ -19,6 +19,7 @@ class Login extends StatefulWidget {
     final theme = Theme.of(context);
 
     return TextField(
+      controller: controller,
       obscureText: isPassword,
       decoration: InputDecoration(
         prefixIcon: Icon(icon, color: theme.colorScheme.primary),
@@ -171,8 +172,10 @@ class _LoginState extends State<Login> {
                               22,
                             ),
                           ),
-
-                          onPressed: () {login(emailController.text.trim(), passwordController.text.trim(), context);},
+                          onPressed: () {
+                            login(emailController.text.trim(),
+                                passwordController.text.trim(), context);
+                          },
                           child: const Text(
                             "Sign In",
                             style: TextStyle(
