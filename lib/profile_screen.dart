@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitmind_ai_fitness_mental_health_companion/change_password_screen.dart';
+import 'package:fitmind_ai_fitness_mental_health_companion/lifestyle_habits_screen.dart';
 import 'package:fitmind_ai_fitness_mental_health_companion/login.dart';
 import 'package:flutter/material.dart';
 
@@ -62,6 +64,53 @@ class ProfileScreen extends StatelessWidget {
               _buildInfoCard("Weight", "${data['weight'] ?? '-'} kg"),
               const SizedBox(height: 16),
               _buildInfoCard("Goals", data['goals'] ?? '-'),
+              const SizedBox(height: 32),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Activity & Health",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ),
+              const SizedBox(height: 16),
+              _buildActionCard(
+                context,
+                "Lifestyle Habits",
+                Icons.favorite_outline,
+                () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LifestyleHabitsScreen()),
+                ),
+              ),
+              const SizedBox(height: 12),
+              _buildActionCard(
+                context,
+                "BMI History",
+                Icons.history,
+                () {
+                   ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("BMI History coming soon!")),
+                  );
+                },
+              ),
+              const SizedBox(height: 32),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Security",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ),
+              const SizedBox(height: 16),
+              _buildActionCard(
+                context,
+                "Change Password",
+                Icons.lock_outline,
+                () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ChangePasswordScreen()),
+                ),
+              ),
               const SizedBox(height: 48),
               SizedBox(
                 width: double.infinity,
@@ -118,6 +167,40 @@ class ProfileScreen extends StatelessWidget {
               style:
                   const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         ],
+      ),
+    );
+  }
+
+  Widget _buildActionCard(
+      BuildContext context, String title, IconData icon, VoidCallback onTap) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.05),
+              blurRadius: 10,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Icon(icon, color: const Color(0xFF2FA67A)),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Text(
+                title,
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              ),
+            ),
+            const Icon(Icons.chevron_right, color: Colors.grey),
+          ],
+        ),
       ),
     );
   }

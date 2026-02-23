@@ -2,6 +2,7 @@ import 'package:fitmind_ai_fitness_mental_health_companion/bmi_calculator.dart';
 import 'package:fitmind_ai_fitness_mental_health_companion/fitness_module.dart';
 import 'package:fitmind_ai_fitness_mental_health_companion/mental_wellness.dart';
 import 'package:fitmind_ai_fitness_mental_health_companion/profile_screen.dart';
+import 'package:fitmind_ai_fitness_mental_health_companion/todo_screen.dart';
 import 'package:flutter/material.dart';
 
 class Homescreen extends StatefulWidget {
@@ -33,6 +34,15 @@ class _HomescreenState extends State<Homescreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         actions: [
+          IconButton(
+            icon: const Icon(Icons.check_circle_outline, color: Colors.black),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const TodoScreen()),
+              );
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.notifications_none, color: Colors.black),
             onPressed: () {},
@@ -86,10 +96,9 @@ class _HomescreenState extends State<Homescreen> {
       floatingActionButton: _currentIndex == 0
           ? FloatingActionButton(
               onPressed: () {
-                // AI Chat or similar action
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("AI Coach coming soon!")),
-                );
+                setState(() {
+                  _currentIndex = 1;
+                });
               },
               backgroundColor: const Color(0xFF2FA67A),
               child: const Icon(Icons.psychology, color: Colors.white),
