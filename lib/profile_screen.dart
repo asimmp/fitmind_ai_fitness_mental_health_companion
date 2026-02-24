@@ -4,10 +4,20 @@ import 'package:fitmind_ai_fitness_mental_health_companion/bmi_history_screen.da
 import 'package:fitmind_ai_fitness_mental_health_companion/change_password_screen.dart';
 import 'package:fitmind_ai_fitness_mental_health_companion/lifestyle_habits_screen.dart';
 import 'package:fitmind_ai_fitness_mental_health_companion/login.dart';
+import 'package:fitmind_ai_fitness_mental_health_companion/cloudinary_service.dart';
 import 'package:flutter/material.dart';
 
-class ProfileScreen extends StatelessWidget {
+import 'package:image_picker/image_picker.dart';
+
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  bool _isUploading = false;
 
   Future<Map<String, dynamic>?> _getUserData() async {
     User? user = FirebaseAuth.instance.currentUser;
@@ -19,6 +29,61 @@ class ProfileScreen extends StatelessWidget {
       return doc.data() as Map<String, dynamic>?;
     }
     return null;
+  }
+
+  Future<void> _pickAndUploadImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 85,
+      maxWidth: 500,
+      maxHeight: 500,
+    );
+
+    if (image != null) {
+      if (!mounted) return;
+
+      setState(() {
+        _isUploading = true;
+      });
+
+      try {
+        final imageBytes = await image.readAsBytes();
+        await CloudinaryService.uploadProfileImage(
+          imageBytes,
+          image.name,
+        );
+
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Profile image updated successfully!'),
+              duration: Duration(seconds: 2),
+            ),
+          );
+          // Refresh the UI by rebuilding the state
+          setState(() {});
+        }
+      } on FirebaseException catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Firebase error: ${e.message}')),
+          );
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Failed to upload image: $e')),
+          );
+        }
+      } finally {
+        if (mounted) {
+          setState(() {
+            _isUploading = false;
+          });
+        }
+      }
+    }
   }
 
   @override
@@ -43,11 +108,46 @@ class ProfileScreen extends StatelessWidget {
           padding: const EdgeInsets.all(24),
           child: Column(
             children: [
-              const SizedBox(height: 20),
-              CircleAvatar(
-                radius: 50,
-                backgroundColor: Theme.of(context).colorScheme.primary,
-                child: const Icon(Icons.person, size: 50, color: Colors.white),
+              GestureDetector(
+                onTap: _isUploading ? null : _pickAndUploadImage,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      backgroundImage: data['profileImageUrl'] != null
+                          ? NetworkImage(data['profileImageUrl'])
+                          : null,
+                      child: data['profileImageUrl'] == null
+                          ? const Icon(Icons.person,
+                              size: 50, color: Colors.white)
+                          : null,
+                    ),
+                    if (_isUploading)
+                      const CircularProgressIndicator(color: Colors.white),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black12,
+                              blurRadius: 4,
+                            )
+                          ],
+                        ),
+                        child: Icon(Icons.camera_alt,
+                            size: 20,
+                            color: Theme.of(context).colorScheme.primary),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(height: 16),
               Text(
