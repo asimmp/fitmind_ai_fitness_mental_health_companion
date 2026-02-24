@@ -16,6 +16,8 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+        // Enable core library desugaring for flutter_local_notifications
+        isCoreLibraryDesugaringEnabled = true
     }
 
     kotlinOptions {
@@ -40,8 +42,21 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
     }
+
+    // Resolve resource conflicts with video_player plugin
+    packagingOptions {
+        resources.excludes += listOf(
+            "META-INF/**",
+            "androidx/**",
+        )
+    }
 }
 
 flutter {
     source = "../.."
+}
+
+dependencies {
+    // Core library desugaring for flutter_local_notifications
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
 }
