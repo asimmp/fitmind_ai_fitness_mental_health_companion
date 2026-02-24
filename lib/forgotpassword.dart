@@ -1,3 +1,4 @@
+import 'package:fitmind_ai_fitness_mental_health_companion/service.dart';
 import 'package:flutter/material.dart';
 
 class Forgotpassword extends StatefulWidget {
@@ -13,7 +14,7 @@ class _ForgotpasswordState extends State<Forgotpassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF4F6F8),
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -26,12 +27,12 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                 alignment: Alignment.centerLeft,
                 child: CircleAvatar(
                   radius: 22,
-                  backgroundColor: const Color(0xFFE3ECE8),
+                  backgroundColor: Theme.of(context).colorScheme.surface,
                   child: IconButton(
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.arrow_back_ios_new,
                       size: 18,
-                      color: Color(0xFF2FA67A),
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                     onPressed: () {
                       Navigator.pop(context);
@@ -49,15 +50,15 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                   Container(
                     height: 140,
                     width: 140,
-                    decoration: const BoxDecoration(
-                      color: Color(0xFFDDE8E4),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.surface,
                       shape: BoxShape.circle,
                     ),
                   ),
-                  const Icon(
+                  Icon(
                     Icons.lock_reset,
                     size: 60,
-                    color: Color(0xFF2FA67A),
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                 ],
               ),
@@ -78,7 +79,7 @@ class _ForgotpasswordState extends State<Forgotpassword> {
               const SizedBox(height: 16),
 
               /// Description
-              const Text.rich(
+              Text.rich(
                 TextSpan(
                   text:
                       "Don’t worry! Enter the email address associated with your ",
@@ -87,7 +88,7 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                     TextSpan(
                       text: "FitMind",
                       style: TextStyle(
-                        color: Color(0xFF2FA67A),
+                        color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -127,7 +128,7 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                     color: Color(0xFF94A3B8),
                   ),
                   filled: true,
-                  fillColor: const Color(0xFFE9EEF3),
+                  fillColor: Theme.of(context).colorScheme.surface,
                   contentPadding: const EdgeInsets.symmetric(vertical: 18),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
@@ -144,16 +145,17 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                 height: 55,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF2FA67A),
+                    backgroundColor: Theme.of(context).colorScheme.primary,
                     foregroundColor: Colors.white,
                     elevation: 8,
-                    shadowColor: const Color(0xFF2FA67A).withOpacity(0.4),
+                    shadowColor:
+                        Theme.of(context).colorScheme.primary.withOpacity(0.4),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(40),
                     ),
                   ),
                   onPressed: () {
-                    // TODO: Implement reset password logic
+                    forgotpassword(emailController.text, context);
                   },
                   child: const Text(
                     "Send Reset Link",
@@ -169,11 +171,12 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                icon: const Icon(Icons.login, color: Color(0xFF2FA67A)),
-                label: const Text(
+                icon: Icon(Icons.login,
+                    color: Theme.of(context).colorScheme.primary),
+                label: Text(
                   "Back to Login",
                   style: TextStyle(
-                    color: Color(0xFF2FA67A),
+                    color: Theme.of(context).colorScheme.primary,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -188,13 +191,13 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                   vertical: 10,
                 ),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFE3ECE8),
+                  color: Theme.of(context).colorScheme.surface,
                   borderRadius: BorderRadius.circular(30),
                 ),
-                child: const Text(
+                child: Text(
                   "●  AI POWERED RECOVERY",
                   style: TextStyle(
-                    color: Color(0xFF2FA67A),
+                    color: Theme.of(context).colorScheme.primary,
                     fontWeight: FontWeight.w600,
                     letterSpacing: 1,
                   ),

@@ -29,9 +29,16 @@ class _SignupState extends State<Signup> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    obscurePassword = true;
+    obscureConfirmPassword = true;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF4F6F8),
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -45,13 +52,13 @@ class _SignupState extends State<Signup> {
                 height: 90,
                 width: 90,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFDDE8E4),
+                  color: Theme.of(context).colorScheme.surface,
                   borderRadius: BorderRadius.circular(28),
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.psychology,
                   size: 40,
-                  color: Color(0xFF2FA67A),
+                  color: Theme.of(context).colorScheme.primary,
                 ),
               ),
 
@@ -119,6 +126,11 @@ class _SignupState extends State<Signup> {
                 isPassword: true,
                 obscure: obscurePassword,
                 controller: passwordController,
+                toggle: () {
+                  setState(() {
+                    obscurePassword = !obscurePassword;
+                  });
+                },
               ),
 
               /// Confirm Password
@@ -130,6 +142,11 @@ class _SignupState extends State<Signup> {
                 isPassword: true,
                 obscure: obscureConfirmPassword,
                 controller: confirmPasswordController,
+                toggle: () {
+                  setState(() {
+                    obscureConfirmPassword = !obscureConfirmPassword;
+                  });
+                },
               ),
 
               /// Age
@@ -173,10 +190,11 @@ class _SignupState extends State<Signup> {
                 height: 55,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF2FA67A),
+                    backgroundColor: Theme.of(context).colorScheme.primary,
                     foregroundColor: Colors.white,
                     elevation: 8,
-                    shadowColor: const Color(0xFF2FA67A).withOpacity(0.4),
+                    shadowColor:
+                        Theme.of(context).colorScheme.primary.withOpacity(0.4),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(40),
                     ),
@@ -216,11 +234,11 @@ class _SignupState extends State<Signup> {
                 "By creating an account, you agree to our ",
                 style: TextStyle(color: Color(0xFF64748B)),
               ),
-              const Text.rich(
+              Text.rich(
                 TextSpan(
                   text: "Terms of Service",
                   style: TextStyle(
-                    color: Color(0xFF2FA67A),
+                    color: Theme.of(context).colorScheme.primary,
                     fontWeight: FontWeight.w600,
                   ),
                   children: [
@@ -234,7 +252,7 @@ class _SignupState extends State<Signup> {
                     TextSpan(
                       text: "Privacy Policy.",
                       style: TextStyle(
-                        color: Color(0xFF2FA67A),
+                        color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -260,10 +278,10 @@ class _SignupState extends State<Signup> {
                         MaterialPageRoute(builder: (context) => const Login()),
                       );
                     },
-                    child: const Text(
+                    child: Text(
                       "Log In",
                       style: TextStyle(
-                        color: Color(0xFF2FA67A),
+                        color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -319,7 +337,7 @@ class _SignupState extends State<Signup> {
                 ? IconButton(
                     icon: Icon(
                       obscure ? Icons.visibility : Icons.visibility_off,
-                      color: const Color(0xFF94A3B8),
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                     onPressed: toggle,
                   )
@@ -327,7 +345,7 @@ class _SignupState extends State<Signup> {
             filled: true,
             fillColor: errorText != null
                 ? const Color(0xFFFFEBEE)
-                : const Color(0xFFE9EEF3),
+                : Theme.of(context).colorScheme.surface,
             contentPadding: const EdgeInsets.symmetric(vertical: 18),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(30),

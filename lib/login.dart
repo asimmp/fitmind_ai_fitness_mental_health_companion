@@ -14,15 +14,17 @@ class Login extends StatefulWidget {
     required TextEditingController controller,
     required IconData icon,
     required String hint,
+    Widget? suffixIcon,
     bool isPassword = false,
   }) {
     final theme = Theme.of(context);
 
     return TextField(
       controller: controller,
-      obscureText: isPassword,
+      obscureText: isPassword == true,
       decoration: InputDecoration(
         prefixIcon: Icon(icon, color: theme.colorScheme.primary),
+        suffixIcon: suffixIcon,
         hintText: hint,
         filled: true,
         fillColor: Colors.white,
@@ -39,6 +41,14 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool _obscurePassword = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _obscurePassword = true;
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -130,8 +140,21 @@ class _LoginState extends State<Login> {
                         context,
                         icon: Icons.lock_outline,
                         hint: "Password",
-                        isPassword: true,
+                        isPassword: _obscurePassword,
                         controller: passwordController,
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _obscurePassword
+                                ? Icons.visibility_off_outlined
+                                : Icons.visibility_outlined,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _obscurePassword = !_obscurePassword;
+                            });
+                          },
+                        ),
                       ),
 
                       const SizedBox(height: 8),

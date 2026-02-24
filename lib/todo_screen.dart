@@ -64,8 +64,8 @@ class _TodoScreenState extends State<TodoScreen> {
                     lastDate: DateTime.now().add(const Duration(days: 365)),
                     builder: (c, child) => Theme(
                       data: Theme.of(c).copyWith(
-                        colorScheme:
-                            const ColorScheme.light(primary: Color(0xFF2FA67A)),
+                        colorScheme: ColorScheme.light(
+                            primary: Theme.of(c).colorScheme.primary),
                       ),
                       child: child!,
                     ),
@@ -77,8 +77,8 @@ class _TodoScreenState extends State<TodoScreen> {
                     initialTime: TimeOfDay.fromDateTime(DateTime.now()),
                     builder: (c, child) => Theme(
                       data: Theme.of(c).copyWith(
-                        colorScheme:
-                            const ColorScheme.light(primary: Color(0xFF2FA67A)),
+                        colorScheme: ColorScheme.light(
+                            primary: Theme.of(c).colorScheme.primary),
                       ),
                       child: child!,
                     ),
@@ -100,12 +100,12 @@ class _TodoScreenState extends State<TodoScreen> {
                       const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
                   decoration: BoxDecoration(
                     color: _selectedDateTime != null
-                        ? const Color(0xFF2FA67A).withOpacity(0.1)
+                        ? Theme.of(ctx).colorScheme.primary.withOpacity(0.1)
                         : const Color(0xFFF1F5F9),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
                       color: _selectedDateTime != null
-                          ? const Color(0xFF2FA67A)
+                          ? Theme.of(ctx).colorScheme.primary
                           : Colors.transparent,
                     ),
                   ),
@@ -114,7 +114,7 @@ class _TodoScreenState extends State<TodoScreen> {
                       Icon(
                         Icons.alarm,
                         color: _selectedDateTime != null
-                            ? const Color(0xFF2FA67A)
+                            ? Theme.of(ctx).colorScheme.primary
                             : Colors.grey,
                         size: 20,
                       ),
@@ -126,7 +126,7 @@ class _TodoScreenState extends State<TodoScreen> {
                             : 'Set reminder date & time (optional)',
                         style: TextStyle(
                           color: _selectedDateTime != null
-                              ? const Color(0xFF2FA67A)
+                              ? Theme.of(ctx).colorScheme.primary
                               : Colors.grey,
                           fontSize: 13,
                         ),
@@ -148,7 +148,7 @@ class _TodoScreenState extends State<TodoScreen> {
                 _addTask();
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF2FA67A),
+                backgroundColor: Theme.of(ctx).colorScheme.primary,
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
@@ -236,13 +236,13 @@ class _TodoScreenState extends State<TodoScreen> {
     final dt = ts.toDate();
     if (dt.isBefore(DateTime.now())) return Colors.red;
     if (dt.difference(DateTime.now()).inHours < 1) return Colors.orange;
-    return const Color(0xFF2FA67A);
+    return Theme.of(context).colorScheme.primary;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Daily Tasks',
             style: TextStyle(fontWeight: FontWeight.bold)),
@@ -251,8 +251,8 @@ class _TodoScreenState extends State<TodoScreen> {
         elevation: 0,
         actions: [
           IconButton(
-            icon: const Icon(Icons.add_circle_rounded,
-                color: Color(0xFF2FA67A), size: 28),
+            icon: Icon(Icons.add_circle_rounded,
+                color: Theme.of(context).colorScheme.primary, size: 28),
             onPressed: _showAddTaskDialog,
           ),
           const SizedBox(width: 4),
@@ -309,8 +309,8 @@ class _TodoScreenState extends State<TodoScreen> {
               ],
               if (completed.isNotEmpty) ...[
                 const SizedBox(height: 16),
-                _buildSectionHeader(
-                    'Completed', completed.length, const Color(0xFF2FA67A)),
+                _buildSectionHeader('Completed', completed.length,
+                    Theme.of(context).colorScheme.primary),
                 ...completed.map((doc) => _buildTaskCard(doc)),
               ],
             ],
@@ -319,7 +319,7 @@ class _TodoScreenState extends State<TodoScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _showAddTaskDialog,
-        backgroundColor: const Color(0xFF2FA67A),
+        backgroundColor: Theme.of(context).colorScheme.primary,
         icon: const Icon(Icons.add, color: Colors.white),
         label: const Text('Add Task', style: TextStyle(color: Colors.white)),
       ),
@@ -377,11 +377,13 @@ class _TodoScreenState extends State<TodoScreen> {
             width: 28,
             height: 28,
             decoration: BoxDecoration(
-              color: isCompleted ? const Color(0xFF2FA67A) : Colors.transparent,
+              color: isCompleted
+                  ? Theme.of(context).colorScheme.primary
+                  : Colors.transparent,
               shape: BoxShape.circle,
               border: Border.all(
                 color: isCompleted
-                    ? const Color(0xFF2FA67A)
+                    ? Theme.of(context).colorScheme.primary
                     : Colors.grey.shade300,
                 width: 2,
               ),

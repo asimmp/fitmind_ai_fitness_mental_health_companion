@@ -56,3 +56,47 @@ Future<void> login(String email, String password, BuildContext context) async {
     ).showSnackBar(SnackBar(content: Text(e.toString())));
   }
 }
+
+Future<void> forgotpassword(
+  String email,
+  BuildContext context,
+) async {
+  try {
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text('Password reset email sent successfully!')));
+
+  } catch (e) {
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(e.toString())));
+  }
+}
+
+Future<void> updateProfile(
+  String name,
+  String age,
+  String weight,
+  String goals,
+  BuildContext context,
+) async {
+  try {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .update({
+          'name': name,
+          'age': age,
+          'weight': weight,
+          'goals': goals,
+        });
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text('Profile updated successfully!')));
+  } catch (e) {
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(e.toString())));
+  }
+}

@@ -35,7 +35,7 @@ class GuideDetailScreen extends StatelessWidget {
                 ),
               ),
             ),
-            backgroundColor: const Color(0xFF2FA67A),
+            backgroundColor: Theme.of(context).colorScheme.primary,
             elevation: 0,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back, color: Colors.white),
@@ -52,13 +52,16 @@ class GuideDetailScreen extends StatelessWidget {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF2FA67A).withOpacity(0.1),
+                      color: Theme.of(context)
+                          .colorScheme
+                          .primary
+                          .withOpacity(0.1),
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: const Text(
+                    child: Text(
                       "EXERCISE GUIDE",
                       style: TextStyle(
-                        color: Color(0xFF2FA67A),
+                        color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.bold,
                         fontSize: 10,
                       ),
@@ -110,10 +113,12 @@ class GuideDetailScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  _buildBenefitItem(Icons.favorite, "Improves heart health"),
                   _buildBenefitItem(
-                      Icons.self_improvement, "Reduces stress and anxiety"),
-                  _buildBenefitItem(Icons.bolt, "Increases energy levels"),
+                      context, Icons.favorite, "Improves heart health"),
+                  _buildBenefitItem(context, Icons.self_improvement,
+                      "Reduces stress and anxiety"),
+                  _buildBenefitItem(
+                      context, Icons.bolt, "Increases energy levels"),
                   const SizedBox(height: 40),
                 ],
               ),
@@ -124,12 +129,12 @@ class GuideDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildBenefitItem(IconData icon, String text) {
+  Widget _buildBenefitItem(BuildContext context, IconData icon, String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Row(
         children: [
-          Icon(icon, color: const Color(0xFF2FA67A), size: 20),
+          Icon(icon, color: Theme.of(context).colorScheme.primary, size: 20),
           const SizedBox(width: 12),
           Text(
             text,

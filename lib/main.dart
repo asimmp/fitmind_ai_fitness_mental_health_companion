@@ -20,6 +20,26 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        useMaterial3: true,
+        primaryColor: const Color(0xFF0BEE16),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF0BEE16),
+          primary: const Color(0xFF0BEE16),
+          secondary: const Color(0xFF0BEE16),
+          surface: const Color(0xFFF4FFF7),
+        ),
+        scaffoldBackgroundColor: Colors.white,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF0BEE16),
+            foregroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        ),
+      ),
       home: FirebaseAuth.instance.currentUser != null
           ? const Homescreen()
           : const Login(),

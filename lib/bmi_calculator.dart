@@ -142,7 +142,7 @@ class _BMICalculatorState extends State<BMICalculator> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0),
         child: Column(
@@ -213,8 +213,8 @@ class _BMICalculatorState extends State<BMICalculator> {
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide.none),
-                      prefixIcon:
-                          const Icon(Icons.height, color: Color(0xFF2FA67A)),
+                      prefixIcon: Icon(Icons.height,
+                          color: Theme.of(context).colorScheme.primary),
                     ),
                   ),
                 ),
@@ -230,8 +230,8 @@ class _BMICalculatorState extends State<BMICalculator> {
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide.none),
-                      prefixIcon: const Icon(Icons.monitor_weight_outlined,
-                          color: Color(0xFF2FA67A)),
+                      prefixIcon: Icon(Icons.monitor_weight_outlined,
+                          color: Theme.of(context).colorScheme.primary),
                     ),
                   ),
                 ),
@@ -261,7 +261,7 @@ class _BMICalculatorState extends State<BMICalculator> {
             ElevatedButton(
               onPressed: calculateBMI,
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF2FA67A),
+                backgroundColor: Theme.of(context).colorScheme.primary,
                 padding: const EdgeInsets.symmetric(vertical: 18),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16)),
@@ -352,7 +352,8 @@ class _BMICalculatorState extends State<BMICalculator> {
         padding: const EdgeInsets.all(8),
         decoration: const BoxDecoration(
             color: Color(0xFFF1F5F9), shape: BoxShape.circle),
-        child: Icon(icon, size: 20, color: const Color(0xFF2FA67A)),
+        child:
+            Icon(icon, size: 20, color: Theme.of(context).colorScheme.primary),
       ),
     );
   }
@@ -433,8 +434,8 @@ class _BMICalculatorState extends State<BMICalculator> {
                 style: TextStyle(fontWeight: FontWeight.bold)),
             style: OutlinedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 16),
-              side: const BorderSide(color: Color(0xFF2FA67A)),
-              foregroundColor: const Color(0xFF2FA67A),
+              side: BorderSide(color: Theme.of(context).colorScheme.primary),
+              foregroundColor: Theme.of(context).colorScheme.primary,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16)),
             ),

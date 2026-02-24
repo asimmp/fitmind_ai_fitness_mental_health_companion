@@ -58,29 +58,36 @@ class _LifestyleHabitsScreenState extends State<LifestyleHabitsScreen> {
         foregroundColor: Colors.black,
         elevation: 0,
       ),
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _buildHabitField("Water Intake (ml)", Icons.local_drink, _waterController, "e.g. 2000"),
+            _buildHabitField("Water Intake (ml)", Icons.local_drink,
+                _waterController, "e.g. 2000"),
             const SizedBox(height: 16),
-            _buildHabitField("Sleep Duration (hours)", Icons.bedtime, _sleepController, "e.g. 8"),
+            _buildHabitField("Sleep Duration (hours)", Icons.bedtime,
+                _sleepController, "e.g. 8"),
             const SizedBox(height: 16),
-            _buildHabitField("Steps Count", Icons.directions_walk, _stepsController, "e.g. 5000"),
+            _buildHabitField("Steps Count", Icons.directions_walk,
+                _stepsController, "e.g. 5000"),
             const SizedBox(height: 32),
             ElevatedButton(
               onPressed: _isLoading ? null : _saveHabits,
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF2FA67A),
+                backgroundColor: Theme.of(context).colorScheme.primary,
                 padding: const EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12)),
               ),
               child: _isLoading
                   ? const CircularProgressIndicator(color: Colors.white)
                   : const Text("Save Daily Habits",
-                      style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold)),
             ),
           ],
         ),
@@ -88,7 +95,8 @@ class _LifestyleHabitsScreenState extends State<LifestyleHabitsScreen> {
     );
   }
 
-  Widget _buildHabitField(String label, IconData icon, TextEditingController controller, String hint) {
+  Widget _buildHabitField(String label, IconData icon,
+      TextEditingController controller, String hint) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -107,7 +115,8 @@ class _LifestyleHabitsScreenState extends State<LifestyleHabitsScreen> {
         children: [
           Row(
             children: [
-              Icon(icon, color: const Color(0xFF2FA67A), size: 20),
+              Icon(icon,
+                  color: Theme.of(context).colorScheme.primary, size: 20),
               const SizedBox(width: 8),
               Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
             ],
@@ -118,8 +127,10 @@ class _LifestyleHabitsScreenState extends State<LifestyleHabitsScreen> {
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
               hintText: hint,
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             ),
           ),
         ],

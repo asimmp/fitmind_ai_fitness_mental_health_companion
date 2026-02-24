@@ -59,7 +59,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         foregroundColor: Colors.black,
         elevation: 0,
       ),
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Form(
@@ -74,9 +74,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   labelText: "Current Password",
                   filled: true,
                   fillColor: Colors.white,
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12)),
                 ),
-                validator: (value) => value!.isEmpty ? "Enter current password" : null,
+                validator: (value) =>
+                    value!.isEmpty ? "Enter current password" : null,
               ),
               const SizedBox(height: 16),
               TextFormField(
@@ -86,9 +88,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   labelText: "New Password",
                   filled: true,
                   fillColor: Colors.white,
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12)),
                 ),
-                validator: (value) => value!.length < 6 ? "Password must be at least 6 characters" : null,
+                validator: (value) => value!.length < 6
+                    ? "Password must be at least 6 characters"
+                    : null,
               ),
               const SizedBox(height: 16),
               TextFormField(
@@ -98,10 +103,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   labelText: "Confirm New Password",
                   filled: true,
                   fillColor: Colors.white,
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12)),
                 ),
                 validator: (value) {
-                  if (value != _newPasswordController.text) return "Passwords do not match";
+                  if (value != _newPasswordController.text)
+                    return "Passwords do not match";
                   return null;
                 },
               ),
@@ -109,13 +116,18 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               ElevatedButton(
                 onPressed: _isLoading ? null : _updatePassword,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF2FA67A),
+                  backgroundColor: Theme.of(context).colorScheme.primary,
                   padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12)),
                 ),
-                child: _isLoading 
-                  ? const CircularProgressIndicator(color: Colors.white)
-                  : const Text("Update Password", style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                child: _isLoading
+                    ? const CircularProgressIndicator(color: Colors.white)
+                    : const Text("Update Password",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold)),
               ),
             ],
           ),

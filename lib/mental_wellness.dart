@@ -106,7 +106,7 @@ class _MentalWellnessState extends State<MentalWellness> {
   }
 
   Color _getBubbleColor(String role) =>
-      role == 'ai' ? Colors.white : const Color(0xFF2FA67A);
+      role == 'ai' ? Colors.white : Theme.of(context).colorScheme.primary;
 
   Color _getTextColor(String role) =>
       role == 'ai' ? Colors.black87 : Colors.white;
@@ -132,7 +132,8 @@ class _MentalWellnessState extends State<MentalWellness> {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: const Color(0xFF2FA67A).withOpacity(0.4)),
+          border: Border.all(
+              color: Theme.of(context).colorScheme.primary.withOpacity(0.4)),
           boxShadow: [
             BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 4),
           ],
@@ -160,15 +161,18 @@ class _MentalWellnessState extends State<MentalWellness> {
           margin: const EdgeInsets.all(16),
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
           decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              colors: [Color(0xFF4F46E5), Color(0xFF7C3AED)],
+            gradient: LinearGradient(
+              colors: [
+                Theme.of(context).colorScheme.primary,
+                Theme.of(context).colorScheme.primary.withOpacity(0.8)
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
-                color: const Color(0xFF4F46E5).withOpacity(0.35),
+                color: Theme.of(context).colorScheme.primary.withOpacity(0.35),
                 blurRadius: 12,
                 offset: const Offset(0, 6),
               ),
@@ -291,17 +295,19 @@ class _MentalWellnessState extends State<MentalWellness> {
                         color: Colors.black.withOpacity(0.05), blurRadius: 4)
                   ],
                 ),
-                child: const Row(
+                child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     SizedBox(
                       width: 16,
                       height: 16,
                       child: CircularProgressIndicator(
-                          strokeWidth: 2, color: Color(0xFF4F46E5)),
+                        strokeWidth: 2,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
                     ),
-                    SizedBox(width: 10),
-                    Text("Coach is thinking...",
+                    const SizedBox(width: 10),
+                    const Text("Coach is thinking...",
                         style: TextStyle(color: Colors.grey, fontSize: 13)),
                   ],
                 ),
@@ -351,13 +357,19 @@ class _MentalWellnessState extends State<MentalWellness> {
                   duration: const Duration(milliseconds: 200),
                   padding: const EdgeInsets.all(13),
                   decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [Color(0xFF4F46E5), Color(0xFF7C3AED)],
+                    gradient: LinearGradient(
+                      colors: [
+                        Theme.of(context).colorScheme.primary,
+                        Theme.of(context).colorScheme.primary.withOpacity(0.8)
+                      ],
                     ),
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                          color: const Color(0xFF4F46E5).withOpacity(0.4),
+                          color: Theme.of(context)
+                              .colorScheme
+                              .primary
+                              .withOpacity(0.4),
                           blurRadius: 8,
                           offset: const Offset(0, 3))
                     ],

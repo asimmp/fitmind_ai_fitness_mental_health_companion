@@ -26,7 +26,7 @@ class NotificationScreen extends StatelessWidget {
     final user = FirebaseAuth.instance.currentUser;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text("Recent Activities",
             style: TextStyle(fontWeight: FontWeight.bold)),
@@ -37,8 +37,9 @@ class NotificationScreen extends StatelessWidget {
           if (user != null)
             TextButton(
               onPressed: () => _markAllAsRead(user.uid),
-              child: const Text("Mark all read",
-                  style: TextStyle(color: Color(0xFF2FA67A))),
+              child: Text("Mark all read",
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.primary)),
             ),
         ],
       ),
@@ -101,8 +102,10 @@ class NotificationScreen extends StatelessWidget {
                           border: isRead
                               ? Border.all(color: Colors.transparent)
                               : Border.all(
-                                  color:
-                                      const Color(0xFF2FA67A).withOpacity(0.3),
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withOpacity(0.3),
                                   width: 1.5),
                           boxShadow: [
                             BoxShadow(
@@ -119,7 +122,10 @@ class NotificationScreen extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: isRead
                                     ? Colors.grey.shade100
-                                    : const Color(0xFF2FA67A).withOpacity(0.1),
+                                    : Theme.of(context)
+                                        .colorScheme
+                                        .primary
+                                        .withOpacity(0.1),
                                 shape: BoxShape.circle,
                               ),
                               child: Icon(
@@ -128,7 +134,7 @@ class NotificationScreen extends StatelessWidget {
                                     : Icons.notifications_active,
                                 color: isRead
                                     ? Colors.grey
-                                    : const Color(0xFF2FA67A),
+                                    : Theme.of(context).colorScheme.primary,
                                 size: 20,
                               ),
                             ),
@@ -171,8 +177,8 @@ class NotificationScreen extends StatelessWidget {
                               Container(
                                 width: 8,
                                 height: 8,
-                                decoration: const BoxDecoration(
-                                  color: Color(0xFF2FA67A),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.primary,
                                   shape: BoxShape.circle,
                                 ),
                               ),

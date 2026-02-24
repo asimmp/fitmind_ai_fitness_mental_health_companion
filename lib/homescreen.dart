@@ -135,7 +135,7 @@ class _HomescreenState extends State<Homescreen> {
   void _showInAppBanner(String taskTitle) {
     ScaffoldMessenger.of(context).showMaterialBanner(
       MaterialBanner(
-        backgroundColor: const Color(0xFF2FA67A),
+        backgroundColor: Theme.of(context).primaryColor,
         leading: const Icon(Icons.alarm, color: Colors.white),
         content: Text(
           '⏰ Reminder: $taskTitle',
@@ -166,7 +166,7 @@ class _HomescreenState extends State<Homescreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
           "FitMind AI",
@@ -242,7 +242,7 @@ class _HomescreenState extends State<Homescreen> {
             });
           },
           type: BottomNavigationBarType.fixed,
-          selectedItemColor: const Color(0xFF2FA67A),
+          selectedItemColor: Theme.of(context).primaryColor,
           unselectedItemColor: Colors.grey,
           showUnselectedLabels: true,
           backgroundColor: Colors.white,
@@ -274,7 +274,7 @@ class _HomescreenState extends State<Homescreen> {
                   _currentIndex = 1;
                 });
               },
-              backgroundColor: const Color(0xFF2FA67A),
+              backgroundColor: Theme.of(context).primaryColor,
               child: const Icon(Icons.psychology, color: Colors.white),
             )
           : null,

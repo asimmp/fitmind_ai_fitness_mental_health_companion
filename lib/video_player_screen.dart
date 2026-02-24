@@ -88,8 +88,8 @@ class _FullscreenVideoPlayerState extends State<FullscreenVideoPlayer> {
                       child: VideoProgressIndicator(
                         _controller,
                         allowScrubbing: true,
-                        colors: const VideoProgressColors(
-                          playedColor: Color(0xFF2FA67A),
+                        colors: VideoProgressColors(
+                          playedColor: Theme.of(context).colorScheme.primary,
                           bufferedColor: Colors.white24,
                           backgroundColor: Colors.white10,
                         ),
@@ -98,7 +98,8 @@ class _FullscreenVideoPlayerState extends State<FullscreenVideoPlayer> {
                   ],
                 ),
               )
-            : const CircularProgressIndicator(color: Color(0xFF2FA67A)),
+            : CircularProgressIndicator(
+                color: Theme.of(context).colorScheme.primary),
       ),
     );
   }

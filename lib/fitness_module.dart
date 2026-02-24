@@ -126,8 +126,9 @@ class _FitnessModuleState extends State<FitnessModule> {
                   ),
                   TextButton(
                     onPressed: () {},
-                    child: const Text("View All",
-                        style: TextStyle(color: Color(0xFF2FA67A))),
+                    child: Text("View All",
+                        style:
+                            TextStyle(color: Theme.of(context).primaryColor)),
                   ),
                 ],
               ),
@@ -388,15 +389,18 @@ class _FitnessModuleState extends State<FitnessModule> {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xFF2FA67A), Color(0xFF289068)],
+        gradient: LinearGradient(
+          colors: [
+            Theme.of(context).colorScheme.primary,
+            Theme.of(context).colorScheme.primary.withOpacity(0.8)
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-              color: const Color(0xFF2FA67A).withOpacity(0.3),
+              color: Theme.of(context).colorScheme.primary.withOpacity(0.3),
               blurRadius: 10,
               offset: const Offset(0, 5)),
         ],

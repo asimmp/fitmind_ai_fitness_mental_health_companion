@@ -11,7 +11,7 @@ class BMIHistoryScreen extends StatelessWidget {
     final user = FirebaseAuth.instance.currentUser;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text("Detailed Analysis History",
             style: TextStyle(fontWeight: FontWeight.bold)),
@@ -98,7 +98,7 @@ class BMIHistoryScreen extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: const Color(0xFF2FA67A).withOpacity(0.05),
+              color: Theme.of(context).colorScheme.primary.withOpacity(0.05),
               borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(20), topRight: Radius.circular(20)),
             ),
@@ -115,17 +115,17 @@ class BMIHistoryScreen extends StatelessWidget {
                             fontWeight: FontWeight.bold)),
                     const SizedBox(height: 4),
                     Text(category,
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
-                            color: Color(0xFF2FA67A))),
+                            color: Theme.of(context).colorScheme.primary)),
                   ],
                 ),
                 Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF2FA67A),
+                    color: Theme.of(context).colorScheme.primary,
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(

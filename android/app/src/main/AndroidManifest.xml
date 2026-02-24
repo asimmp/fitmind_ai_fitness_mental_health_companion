@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="fitmind_ai_fitness_mental_health_companion"
+        android:label="Fit Mind"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
