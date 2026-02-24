@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "728819774121",
-    "project_id": "fit-mind-5697f",
-    "storage_bucket": "fit-mind-5697f.firebasestorage.app"
+    "project_number": "930780173261",
+    "project_id": "fitness-1f42d",
+    "storage_bucket": "fitness-1f42d.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:728819774121:android:545dcbf316606a4399efb8",
+        "mobilesdk_app_id": "1:930780173261:android:159225c9d42b82ada8ea84",
         "android_client_info": {
           "package_name": "com.example.fitmind_ai_fitness_mental_health_companion"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyC8r46FAHJO5PdjDFQtWPJovrP-VW730Hg"
+          "current_key": "AIzaSyDvMaxzZ92abU0k7Q-5JVx58vMLbCU1VI8"
         }
       ],
       "services": {

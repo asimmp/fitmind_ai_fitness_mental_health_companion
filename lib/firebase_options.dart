@@ -41,48 +41,49 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAntGFtc37TIK0xDGK3l8KtqUFvrqqRNLw',
-    appId: '1:728819774121:web:8a4ce11ec3f4534199efb8',
-    messagingSenderId: '728819774121',
-    projectId: 'fit-mind-5697f',
-    authDomain: 'fit-mind-5697f.firebaseapp.com',
-    storageBucket: 'fit-mind-5697f.firebasestorage.app',
-    measurementId: 'G-G8PJY67WX4',
+    apiKey: 'AIzaSyBEcsx9tjUz7q2xlcTUY7VdHbQ2HIrJRyY',
+    appId: '1:930780173261:web:b7ff9319d9ca2039a8ea84',
+    messagingSenderId: '930780173261',
+    projectId: 'fitness-1f42d',
+    authDomain: 'fitness-1f42d.firebaseapp.com',
+    storageBucket: 'fitness-1f42d.firebasestorage.app',
+    measurementId: 'G-8S96J8RGF1',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyC8r46FAHJO5PdjDFQtWPJovrP-VW730Hg',
-    appId: '1:728819774121:android:545dcbf316606a4399efb8',
-    messagingSenderId: '728819774121',
-    projectId: 'fit-mind-5697f',
-    storageBucket: 'fit-mind-5697f.firebasestorage.app',
+    apiKey: 'AIzaSyDvMaxzZ92abU0k7Q-5JVx58vMLbCU1VI8',
+    appId: '1:930780173261:android:159225c9d42b82ada8ea84',
+    messagingSenderId: '930780173261',
+    projectId: 'fitness-1f42d',
+    storageBucket: 'fitness-1f42d.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCh5bv_Du63Tva1bJdI0g5E6aon7qn9ymk',
-    appId: '1:728819774121:ios:d40bd4e737bf4c8999efb8',
-    messagingSenderId: '728819774121',
-    projectId: 'fit-mind-5697f',
-    storageBucket: 'fit-mind-5697f.firebasestorage.app',
+    apiKey: 'AIzaSyAeQdcEzjSmfuJMFVn-jSUFnN0E_0XVZqA',
+    appId: '1:930780173261:ios:5c4ba5b95475eb67a8ea84',
+    messagingSenderId: '930780173261',
+    projectId: 'fitness-1f42d',
+    storageBucket: 'fitness-1f42d.firebasestorage.app',
     iosBundleId: 'com.example.fitmindAiFitnessMentalHealthCompanion',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCh5bv_Du63Tva1bJdI0g5E6aon7qn9ymk',
-    appId: '1:728819774121:ios:d40bd4e737bf4c8999efb8',
-    messagingSenderId: '728819774121',
-    projectId: 'fit-mind-5697f',
-    storageBucket: 'fit-mind-5697f.firebasestorage.app',
+    apiKey: 'AIzaSyAeQdcEzjSmfuJMFVn-jSUFnN0E_0XVZqA',
+    appId: '1:930780173261:ios:5c4ba5b95475eb67a8ea84',
+    messagingSenderId: '930780173261',
+    projectId: 'fitness-1f42d',
+    storageBucket: 'fitness-1f42d.firebasestorage.app',
     iosBundleId: 'com.example.fitmindAiFitnessMentalHealthCompanion',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyAntGFtc37TIK0xDGK3l8KtqUFvrqqRNLw',
-    appId: '1:728819774121:web:ccf5ed6ee32fe8c699efb8',
-    messagingSenderId: '728819774121',
-    projectId: 'fit-mind-5697f',
-    authDomain: 'fit-mind-5697f.firebaseapp.com',
-    storageBucket: 'fit-mind-5697f.firebasestorage.app',
-    measurementId: 'G-0550YLYBRD',
+    apiKey: 'AIzaSyBEcsx9tjUz7q2xlcTUY7VdHbQ2HIrJRyY',
+    appId: '1:930780173261:web:c5d90e204d93f618a8ea84',
+    messagingSenderId: '930780173261',
+    projectId: 'fitness-1f42d',
+    authDomain: 'fitness-1f42d.firebaseapp.com',
+    storageBucket: 'fitness-1f42d.firebasestorage.app',
+    measurementId: 'G-3Z7Z7FDLFR',
   );
+
 }

@@ -5,6 +5,7 @@ import 'package:fitmind_ai_fitness_mental_health_companion/change_password_scree
 import 'package:fitmind_ai_fitness_mental_health_companion/lifestyle_habits_screen.dart';
 import 'package:fitmind_ai_fitness_mental_health_companion/login.dart';
 import 'package:fitmind_ai_fitness_mental_health_companion/cloudinary_service.dart';
+import 'package:fitmind_ai_fitness_mental_health_companion/edit_profile_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:image_picker/image_picker.dart';
@@ -158,6 +159,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Text(
                 data['email'] ?? '',
                 style: const TextStyle(fontSize: 14, color: Colors.grey),
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  onPressed: () async {
+                    final result = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EditProfileScreen(userData: data),
+                      ),
+                    );
+                    if (result == true && mounted) {
+                      setState(() {});
+                    }
+                  },
+                  icon: const Icon(Icons.edit),
+                  label: const Text('Edit Profile'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
               ),
               const SizedBox(height: 32),
               _buildInfoCard("Age", "${data['age'] ?? '-'} years"),
